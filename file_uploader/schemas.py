@@ -1,12 +1,7 @@
-# from pydantic import BaseModel
+from uuid import UUID
+
+from pydantic import BaseModel
 
 
-# Define your schemas
-
-"""
-# Example:
-
-class ExampleSchema(BaseModel):
-    name: str
-    age: int
-"""
+class ZipUploadResponse(BaseModel):
+    file_identification: UUID

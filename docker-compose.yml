@@ -1,0 +1,22 @@
+services:
+  file_uploader_db:
+    image: 'postgres:18-alpine'
+    container_name: 'file_uploader_db'
+    ports:
+      - '5432:5432'
+    environment:
+      - 'POSTGRES_USER=file_uploader'
+      - 'POSTGRES_DB=file_uploader'
+      - 'POSTGRES_PASSWORD=file_uploader_passwd'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  file_uploader:
+    build: .
+    ports:
+      - '8000:8000'
+    environment:
+      - DATABASE_URL=postgresql+psycopg://file_uploader:file_uploader_passwd@file_uploader_database:5432/file_uploader
+    depends_on:
+      - file_uploader_db
+volumes:
+  pgdata:
